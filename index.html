@@ -1,20 +1,67 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>劉家豪的首頁</title>
-    <style media="screen">
-      body{
-        text-align: center;
-        color:#ffffff;
-      }
-    </style>
-  </head>
-  <body background="13.jpg">
-    <h1>資工二甲 劉家豪<h1/>
-      愛好大自然喜歡釣魚
-  <br><img src="x.jpg"  alt=""height="300" width="400">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body onload="startClock()" onunload="stopClock()">
+        <div id="show"></div>
+        <h2>照片集</h2>
+        <img src="images/pic00.jpeg" alt=""onmousedown="this.src=nextImage()"
+                                    onmouseover="this.src=randomImage()">
      
+       <script>
+            var curIndex=0;
+            var imgArray = new Array();
+            var pics=14;
+    
+            for(i=0;i<pics;i++)
+            {
+                imgArray[i]=new Image();
+                if(i<10)
+                    imgArray[i].src="images/pic0"+i+".jpeg";
+                else
+                    imgArray[i].src="images/pic"+i+".jpeg";
 
-  </body>
+            }
+            function nextImage()
+            {
+                curIndex++;
+                curIndex=curIndex % pics;
+                return(imgArray[curIndex].src);
+            }
+            function randomImage(){
+                curIndex=Math.floor(Math.random()*imgArray.length);
+                return(imgArray[curIndex].src);
+            }
+       </script>
+       <script>
+                var timer = null;
+                // 顯示數字圖片
+                function displayClock(num) {
+                  var dig = parseInt(num/10);
+                  var timetag="<img src='images\\" + dig + ".gif'>";
+                  dig = num%10;
+                  timetag +="<img src='images\\" + dig + ".gif'>";
+                  return timetag;
+                }
+                // 停止計時
+                function stopClock() {
+                   clearTimeout(timer);
+                }
+                // 開始計時
+                function startClock() {
+                   var time = new Date();
+                   // 取得時間
+                   var hours = displayClock(time.getHours()) + ":";
+                   var minutes = displayClock(time.getMinutes()) + ":";
+                   var seconds = displayClock(time.getSeconds());
+                   // 顯示時間
+                   show.innerHTML = hours + minutes + seconds;
+                   timer = setTimeout("startClock()",1000);
+                }
+                </script>
+</body>
 </html>
